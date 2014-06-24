@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8" />
+		<title>照片墙效果</title>
+		<style type="text/css">
+			*{margin:0;padding:0;}
+		    #ulWrap{list-style: none;position: relative;width:660px;margin:10px auto;}
+		    #ulWrap li{float:left;margin:10px;z-index:1;}
+		    #ulWrap li img{width:200px;height:150px;vertical-align:bottom;}
+		    #ulWrap .active{border:1px dashed red;}
+		</style>
+		<script type="text/javascript">
+
+			//事件捕获，把所有事件都归结于一个对象身上
+			
+		    window.onload=function(){
+			    var 
+			    	oUl=document.getElementById('ulWrap'),
+			    	oLis=oUl.getElementsByTagName('li'),
+			    	oPos=[], //存储布局位置
+			    	i=0,
+			    	len=oLis.length,
+			    	minZindex=2;
+			    
+			    //1、布局转换(使用绝对定位，把元素间的布局对换一下)
+			    for(i=0;i<len;i++){
+				    //相对于父级元素的位置
+				    oPos[i]={left:oLis[i].offsetLeft,top:oLis[i].offsetTop};
+			    }
+			    //开始定位
+			     for(i=0;i<len;i++){
+				    oLis[i].style.left=oPos[i].left+'px';
+				    oLis[i].style.top=oPos[i].top+'px';
+
+				    oLis[i].style.position='absolute';
+				    oLis[i].style.margin='0';
+
+				    oLis[i].index=i;
+			    }
+
+			     //2、拖拽
+			    for(i=0;i<len;i++){
+				    setDrag(oLis[i]);
+			    }
+			    function setDrag(obj){
+				    obj.onmousedown=function (ev) {
+					    var ev =ev || event;
+				    	//鼠标到图片左上角的距离
+				    	var 
+				    		disX=ev.clientX-obj.offsetLeft;
+				    		disY=ev.clientY-obj.offsetTop;
+
+				     	obj.style.cursor='move';
+				     	/*
+						1、move事件加在down事件里面，是为了在鼠标点下之前，不会有其它反应(操作)
+						2、给document添加move事件，是因为document范围足够大
+				     	*/
+				     	document.onmousemove=function(ev){
+					     	var 
+					     		ev= ev || event,
+					     		l=ev.clientX-disX,
+					     		t=ev.clientY-disY;
+					     		
+					        //浏览器窗口边缘检测
+					        if(l<-oUl.offsetLeft){
+						        l=-oUl.offsetLeft;
+					        }else if(l>document.documentElement.clientWidth-oUl.offsetLeft-obj.offsetWidth){
+						        l=document.documentElement.clientWidth-oUl.offsetLeft-obj.offsetWidth;
+					        }
+
+					        if(t<-oUl.offsetTop){
+						        t=-oUl.offsetTop;
+					        }else if(t>document.documentElement.clientHeight-oUl.offsetTop-obj.offsetHeight){
+						        t=document.documentElement.clientHeight-oUl.offsetTop-obj.offsetHeight;
+					        }
+					     	console.log(oUl.offsetLeft + '  ' + oUl.offsetTop);	
+					     	obj.style.left = l+'px';
+					     	obj.style.top  = t+'px';
+
+					     	obj.style.zIndex=minZindex++;
+
+							for(i=0;i<len;i++){
+								oLis[i].className='';
+							}
+
+							var oNear=findNearest(obj);
+							if(oNear){
+								oNear.className='active';
+							}
+					     	
+				     	}
+				     	
+				     	//开始运动
+				     	document.onmouseup=function(){
+					     	//用完就删
+					     	document.onmousemove=null;
+					     	document.onmouseup=null;
+					     	obj.style.cursor='default';
+
+					     	var oNear=findNearest(obj);
+					     	if(oNear){
+						     	oNear.className='';
+						     	oNear.style.zIndex=minZindex++;
+						     	obj.style.zIndex=minZindex++;
+						     	//oNear --> obj
+						     	//obj-->oNear
+						     	startMove(oNear,oPos[obj.index]);
+						     	startMove(obj,oPos[oNear.index]);
+
+						     	//改变索引值
+						     	var tmp=0;
+						     	tmp=obj.index;
+						     	obj.index=oNear.index;
+						     	oNear.index=tmp;
+						     	
+					     	}else{
+						     	startMove(obj,oPos[obj.index]);
+					     	}
+				     	}
+				     	clearTimeout(obj.timer);
+				     	//解决位置不会移动问题，浏览器自带bug
+				     	return false;//阻止浏览器默认事件的发生(移动时会自动选中文字，因为文字会得到事件)
+				    }
+			     }
+
+			     //3、碰撞检测(原理为九宫格)
+			     function csTest(obj1,obj2){
+				     var 
+				     	 l1=obj1.offsetLeft;
+				     	 r1=obj1.offsetLeft+obj1.offsetWidth;
+				     	 t1=obj1.offsetTop;
+				     	 b1=obj1.offsetTop+obj1.offsetHeight;
+
+				     	 l2=obj2.offsetLeft;
+				     	 r2=obj2.offsetLeft+obj2.offsetWidth;
+				     	 t2=obj2.offsetTop;
+				     	 b2=obj2.offsetTop+obj2.offsetHeight;
+
+				    if(r1<l2 || l1>r2 || t1>b2 || b1<t2){
+					    return false;
+				    }
+				    return true;
+			     }
+
+			     //取得两点(元素的中心点)之间的距离
+			     function getDis(obj1,obj2){
+				    var 
+				     	x=obj1.offsetLeft-obj2.offsetLeft;
+				     	y=obj1.offsetTop -obj2.offsetTop;
+
+				    return Math.sqrt(x*x+y*y);
+			     }
+
+			     //取得相碰撞元素中，离自己最近的元素
+			     function findNearest(obj){
+				    var 
+				    	min=9999999,
+				    	minIndex=-1;
+				    	
+				    for(i=0;i<len;i++){
+				     	if(obj!=oLis[i]){
+					     	if(csTest(obj,oLis[i])){
+						     	var dis=getDis(obj,oLis[i])
+						     	if(dis<min){
+							     	min=dis;
+							     	minIndex=i;
+						     	}
+					     	}
+				     	}
+			     	}
+
+			     	if(-1==minIndex){
+				     	return null;
+			     	}
+			     	return oLis[minIndex];
+			     }
+		    }
+		</script>
+	</head>
+	<body>
+		<ul id="ulWrap">
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/41/138/1475/95947106.png" alt="法拉利" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/152/242/1474/95908712.jpg" alt="保时捷" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/144/242/1474/95908704.jpg" alt="玛莎拉蒂" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/89/236/1474/95907119.jpg" alt="迈凯轮" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/41/138/1475/95947106.png" alt="奔驰" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/152/242/1474/95908712.jpg" alt="宝马" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/144/242/1474/95908704.jpg" alt="宾利" title=""/></li>
+		    <li><img src="http://img1.gtimg.com/fj/pics/hv1/89/236/1474/95907119.jpg" alt="迈巴赫" title=""/></li>
+		</ul>
+		<script type="text/javascript">
+			//运动代码
+			function getStyle(obj, attr)
+			{
+				if(obj.currentStyle)
+				{
+					return obj.currentStyle[attr];
+				}
+				else
+				{
+					return getComputedStyle(obj, false)[attr];
+				}
+			}
+
+			function startMove(obj, json, fn)
+			{
+				clearInterval(obj.timer);
+				obj.timer=setInterval(function (){
+					var bStop=true;		//这一次运动就结束了——所有的值都到达了
+					for(var attr in json)
+					{
+						//1.取当前的值
+						var iCur=0;
+						
+						if(attr=='opacity')
+						{
+							iCur=parseInt(parseFloat(getStyle(obj, attr))*100);
+						}
+						else
+						{
+							iCur=parseInt(getStyle(obj, attr));
+						}
+						
+						//2.算速度
+						var iSpeed=(json[attr]-iCur)/8;
+						iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+						
+						//3.检测停止
+						if(iCur!=json[attr])
+						{
+							bStop=false;
+						}
+						
+						if(attr=='opacity')
+						{
+							obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')';
+							obj.style.opacity=(iCur+iSpeed)/100;
+						}
+						else
+						{
+							obj.style[attr]=iCur+iSpeed+'px';
+						}
+					}
+					
+					if(bStop)
+					{
+						clearInterval(obj.timer);
+						
+						if(fn)
+						{
+							fn();
+						}
+					}
+				}, 30)
+			}
+		</script>
+	</body>
+</html>

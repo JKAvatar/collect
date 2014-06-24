@@ -1,0 +1,111 @@
+<!doctype html> 
+<html> 
+	<head>
+		<meta charset="utf-8">
+		<title>进度条</title> 
+		<style type="text/css"> 
+			body,div{ 
+				padding:0px;
+				margin: 0px;
+				text-align: center;
+			} 
+			.graph{
+				width:450px;
+				padding: 20px;
+				height:26px;
+				position: fixed;
+				top: 50%;
+				left:50%;
+				margin-top: -33px;
+				margin-left: -245px;
+				background-color: #aaa;
+				z-index:99999;
+			} 
+			.bar{
+				border: 1px yellow solid; 
+				background:red; 
+				height:26px;
+				line-height:26px;
+				text-align:center;
+				float: left;
+			}
+		</style> 
+		<script type="text/javascript">
+			function getEleById(obj){
+				return document.getElementById(obj); 
+			}
+			var progressBar = function(){
+				if(getEleById("progressBar") != null){
+					return false;
+				}
+				var graph = document.createElement('div');
+				graph.className = 'graph';
+				graph.id = 'progressCon';
+				var bar = document.createElement('div');
+				bar.className = 'bar';
+				bar.id = 'progressBar';
+				bar.style.width = '0%';
+				graph.appendChild(bar);
+				document.body.appendChild(graph);
+			}
+			var setProgress = function(done,total){
+				var $bar = getEleById("progressBar"),
+					$con = getEleById("progressCon");
+				var percent = parseInt(done  * 100 / total,10);
+				if(percent < 0){
+					percent = 0;
+				} else if(percent > 100){
+					percent = 100;
+				}
+				$bar.style.width = percent + "%"; 
+				$bar.innerHTML = percent + "%";
+				if(percent >= 100){
+					setTimeout(function(){
+						alert("已完成!");
+						$con.parentNode.removeChild($con);   //删除
+					},100);
+				}
+			}
+			window.onload = function(){
+				progressBar();
+				var done = 1,
+					total = 100;
+				var interval = setInterval(function(){
+					if(done >= total){
+						clearInterval(interval);
+					}
+					setProgress(done,total);
+					done += 1;
+				},20);
+			}
+		</script>
+
+	</head> 
+	<body>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+		<div>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>
+	</body> 
+</html> 
