@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前段汇总</title>
+		<style>
+			.wrapper{
+				width:900px;
+				margin:0 auto;
+			}
+			table{
+				width:100%;
+				text-align: center;
+				border-collapse:collapse; /*设置合并边框模型*/
+			}
+			td,th{
+				border:1px #ddd solid;
+			}
+			tfoot{
+				color:#aaa;
+			}
+			em{color:red;}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<table>
+				<thead>
+					<tr>
+						<th width="50%">Description</th>
+						<th>Solution</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>获取当前时间戳</td>
+						<td>new Date - 0<em>js方法</em></td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie</td>
+						<td>&lt;!--[if IE]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie</td>
+						<td>&lt;!--[if IE]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie<em>X</em></td>
+						<td>&lt;!--[if IE <em>X</em>]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie<em>X</em>以上</td>
+						<td>&lt;!--[if gt IE <em>X</em>]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie<em>X</em>及以上</td>
+						<td>&lt;!--[if gte IE <em>X</em>]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie<em>X</em>以下</td>
+						<td>&lt;!--[if lt IE <em>X</em>]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>html注释辨别ie<em>X</em>及以下</td>
+						<td>&lt;!--[if lte IE <em>X</em>]&gt;*****&lt;![endif]--&gt;</td>
+					</tr>
+					<tr>
+						<td>清除IE6下鼠标出现加载闪烁图标BUG</td>
+						<td>document.execCommand('BackgroundImageCache', false, true);</td>
+					</tr>
+					<tr>
+						<td>幻灯片实现一</td>
+						<td>jquery-slide.js(<a href="./jquery-slide/demo.html">demo</a>)</td>
+					</tr>
+					<tr>
+						<td>二维三维翻转</td>
+						<td>CSS3实现transform(<a href="./css3/3D.html">demo</a>)</td>
+					</tr>
+					<tr>
+						<td>click和blur的触发顺序</td>
+						<td>mousedown > blur > mouseup > click</td>
+					</tr>
+					<tr>
+						<td>文本框提示</td>
+						<td>聚焦型和输入性提示语(<a href="./js特效/文本框提示.html">demo</a>)</td>
+					</tr>
+					<tr>
+						<td>canvas玫瑰</td>
+						<td>html5的canvas特效(<a href="./js特效/canvas-rose.html">demo</a>)</td>
+					</tr>
+					<tr>
+						<td>输入框内容反序输出</td>
+						<td>原生js兼容ie和w3c(<a href="./js特效/reverseInput.html">demo</a>)</td>
+					</tr>
+					<tr>
+						<td>前端开发资源导航</td>
+						<td><a hred="http://www.css88.com/nav/">开发资源</a></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">不积小流无以成江海</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</body>
+</html>

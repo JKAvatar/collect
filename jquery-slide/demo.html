@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="copyright" content="" />
+    <title>Jquery写的幻灯片，支持全屏切换和简易相册</title>
+    <link rel="stylesheet" type="text/css" href="../base.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./slide.css" media="screen" />
+    <style type="text/css">
+	    /* demo */
+	    #demo1 { height:400px; position:relative;}
+	    #demo2 { width:600px; height:375px; position:relative;margin:20px auto;}
+	    #demo3 { width:600px; height:375px; position:relative;margin:20px auto;}
+	    #demo3 .ui-slide-list { display:none;}
+	    #demo3 .ui-slide-title { text-align:center;}
+    </style>
+</head>
+
+<body>
+    <div id="demo1">
+        <ul class="ui-slide">
+            <li><a href="#" data-src="./img/1.jpg"></a></li>
+            <li><a href="#" data-src="./img/2.jpg"></a></li>
+            <li><a href="#" data-src="./img/3.jpg"></a></li>
+        </ul>
+    </div>
+    
+    <div id="demo2">
+        <ul class="ui-slide">
+            <li><a href="#"><img data-src="./img/1m.jpg" width="600" height="375" alt="漩涡鸣人" /></a></li>
+            <li><a href="#"><img data-src="./img/2m.jpg" width="600" height="375" alt="旗木卡卡西" /></a></li>
+            <li><a href="#"><img data-src="./img/3m.jpg" width="600" height="375" alt="犬冢牙" /></a></li>
+        </ul>
+    </div>
+    
+    <div id="demo3">
+        <ul class="ui-slide">
+            <li><a href="#"><img data-src="./img/1m.jpg" data-thumb="./img/1t.jpg" width="600" height="375" alt="漩涡鸣人" /></a></li>
+            <li><a href="#"><img data-src="./img/2m.jpg" data-thumb="./img/2t.jpg" width="600" height="375" alt="旗木卡卡西" /></a></li>
+            <li><a href="#"><img data-src="./img/3m.jpg" data-thumb="./img/3t.jpg" width="600" height="375" alt="犬冢牙" /></a></li>
+            <li><a href="#"><img data-src="./img/4m.jpg" data-thumb="./img/4t.jpg" width="600" height="375" alt="宇智波佐助" /></a></li>
+            <li><a href="#"><img data-src="./img/5m.jpg" data-thumb="./img/5t.jpg" width="600" height="375" alt="春野樱" /></a></li>
+            <li><a href="#"><img data-src="./img/6m.jpg" data-thumb="./img/6t.jpg" width="600" height="375" alt="夕日红" /></a></li>
+            <li><a href="#"><img data-src="./img/7m.jpg" data-thumb="./img/7t.jpg" width="600" height="375" alt="白" /></a></li>
+            <li><a href="#"><img data-src="./img/8m.jpg" data-thumb="./img/8t.jpg" width="600" height="375" alt="山中井野" /></a></li>
+            <li><a href="#"><img data-src="./img/9m.jpg" data-thumb="./img/9t.jpg" width="600" height="375" alt="御手洗红豆" /></a></li>
+            <li><a href="#"><img data-src="./img/10m.jpg" data-thumb="./img/10t.jpg" width="600" height="375" alt="天天" /></a></li>
+        </ul>
+    </div>
+    
+    <script type="text/javascript" src="../jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="./jquery.slide.js"></script>
+    <script type="text/javascript">
+	    //清除IE6下鼠标出现加载闪烁图标BUG
+	    document.execCommand('BackgroundImageCache', false, true);
+	    
+	    $('#demo1').slide({resize:true, backdrop:true, auto:false});
+	    $('#demo2').slide({width:600});
+	    $('#demo3').slide({width:600, title:true, thumb:true, auto:false, fadeIn:true});
+    </script>
+</body>
+</html>

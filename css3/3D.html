@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title> CSS3 二维三维翻转 </title>
+    <style type="text/css">
+      h2{font-size:16px;text-align:center;}
+      .container{position:relative;width:900px;margin:10px auto;}
+      .container div{position:absolute;width:225px;height:180px;cursor:pointer;margin-bottom:10px;}
+      .container div a{display:block;height:100%;text-decoration:none;color:#FFF;background-color:#FFF;}
+      .container div img{width:100%;height:100%;}
+
+      .box1{left:10px;top:10px;}
+      .box1 a{
+        transition:all 1s ease;
+        -moz-transition:all 1s ease;
+        -webkit-transition:all 1s ease;
+        -o-transition:all 1s ease;
+      }
+      .box1 span{
+        display:none;
+        height:100%;
+        box-sizing:border-box;
+        background-color:green;
+        padding:5px 10px;
+        transform:rotateX(-180deg);
+        -moz-transform:rotateX(-180deg);
+        -webkit-transform:rotateX(-180deg);
+        -o-transform:rotateX(-180deg);
+      }
+      .box1:hover img{display:none;}
+      .box1:hover span{display:block;}
+      .box1:hover a{
+        transform:rotateX(180deg);
+        -moz-transform:rotateX(180deg);
+        -webkit-transform:rotateX(180deg);
+        -o-transform:rotateX(180deg);
+      }
+
+      .box2{left:10px;top:260px;}
+      .box2 a{transition:all 1s ease;-moz-transition:all 1s ease;-webkit-transition:all 1s ease;-o-transition:all 1s ease;}
+      .box2 span{display:none;height:100%;box-sizing:border-box;background-color:green;padding:5px 10px;transform:rotateY(-180deg);-moz-transform:rotateY(-180deg);-webkit-transform:rotateY(-180deg);-o-transform:rotateY(-180deg);}
+      .box2:hover img{display:none;}
+      .box2:hover span{display:block;}
+      .box2:hover a{transform:rotateY(180deg);-moz-transform:rotateY(180deg);-webkit-transform:rotateY(180deg);-o-transform:rotateY(180deg);}
+
+      .box3{left:320px;top:10px;}
+      .box3{perspective:900px;backface-visibility:hidden;-moz-perspective:900px;-moz-backface-visibility:hidden;-webkit-perspective:900px;-webkit-backface-visibility:hidden;-o-perspective:900px;-o-backface-visibility:hidden;}
+      .box3 a{transform-style:preserve-3d;transition:all .5s linear;-moz-transform-style:preserve-3d;-moz-transition:all .5s linear;-webkit-transform-style:preserve-3d;-webkit-transition:all .5s linear;-o-transform-style:preserve-3d;-o-transition:all .5s linear;}
+      .box3 img{display:block;height:180px;}
+      .box3 span{display:block;height:180px;box-sizing:border-box;background-color:green;padding:5px 10px;transform-origin:50% 0;transform:rotateX(-90deg);-moz-transform-origin:50% 0;-moz-transform:rotateX(-90deg);-webkit-transform-origin:50% 0;-webkit-transform:rotateX(-90deg);-o-transform-origin:50% 0;-o-transform:rotateX(-90deg);}
+      .box3:hover a{transform:rotateX(90deg) translate3d(0,-90px,90px);-moz-transform:rotateX(90deg) translate3d(0,-90px,90px);-webkit-transform:rotateX(90deg) translate3d(0,-90px,90px);-o-transform:rotateX(90deg) translate3d(0,-90px,90px);}
+
+      .box4{left:320px;top:260px;}
+      .box4{perspective:900px;backface-visibility:hidden;-moz-perspective:900px;-moz-backface-visibility:hidden;-webkit-perspective:900px;-webkit-backface-visibility:hidden;-o-perspective:900px;-o-backface-visibility:hidden;}
+      .box4 a{transform-style:preserve-3d;transition:all .5s linear;-moz-transform-style:preserve-3d;-moz-transition:all .5s linear;-webkit-transform-style:preserve-3d;-webkit-transition:all .5s linear;-o-transform-style:preserve-3d;-o-transition:all .5s linear;}
+      .box4 img{display:block;height:180px;}
+      .box4 span{display:block;height:180px;box-sizing:border-box;background-color:green;padding:5px 10px;transform-origin:50% 100%;transform:translateY(-360px) rotateX(90deg);-moz-transform-origin:50% 100%;-moz-transform:translateY(-360px) rotateX(90deg);-webkit-transform-origin:50% 100%;-webkit-transform:translateY(-360px) rotateX(90deg);-o-transform-origin:50% 100%;-o-transform:translateY(-360px) rotateX(90deg);}
+      .box4:hover a{transform:rotateX(-90deg) translate3d(0,90px,90px);-moz-transform:rotateX(-90deg) translate3d(0,90px,90px);-webkit-transform:rotateX(-90deg) translate3d(0,90px,90px);-o-transform:rotateX(-90deg) translate3d(0,90px,90px);}
+
+      .box5{left:620px;top:10px;}
+      .box5{perspective:900px;backface-visibility:hidden;-moz-perspective:900px;-moz-backface-visibility:hidden;-webkit-perspective:900px;-webkit-backface-visibility:hidden;-o-perspective:900px;-o-backface-visibility:hidden;}
+      .box5 a{transform-style:preserve-3d;transition:all .5s linear;-moz-transform-style:preserve-3d;-moz-transition:all .5s linear;-webkit-transform-style:preserve-3d;-webkit-transition:all .5s linear;-o-transform-style:preserve-3d;-o-transition:all .5s linear;}
+      .box5 img{display:block;height:180px;}
+      .box5 span{display:block;height:180px;box-sizing:border-box;background-color:green;padding:5px 10px;transform-origin:0 50%;transform:translate(100%,-100%) rotateY(90deg);-moz-transform-origin:0 50%;-moz-transform:translate(100%,-100%) rotateY(90deg);-webkit-transform-origin:0 50%;-webkit-transform:translate(100%,-100%) rotateY(90deg);-o-transform-origin:0 50%;-o-transform:translate(100%,-100%) rotateY(90deg);}
+      .box5:hover a{transform:rotateY(-90deg) translate3d(-90px,0,112px);-moz-transform:rotateY(-90deg) translate3d(-90px,0,112px);-webkit-transform:rotateY(-90deg) translate3d(-90px,0,112px);-o-transform:rotateY(-90deg) translate3d(-90px,0,112px);}
+
+      .box6{left:620px;top:260px;}
+      .box6{perspective:900px;backface-visibility:hidden;-moz-perspective:900px;-moz-backface-visibility:hidden;-webkit-perspective:900px;-webkit-backface-visibility:hidden;-o-perspective:900px;-o-backface-visibility:hidden;}
+      .box6 a{transform-style:preserve-3d;transition:all .5s linear;-moz-transform-style:preserve-3d;-moz-transition:all .5s linear;-webkit-transform-style:preserve-3d;-webkit-transition:all .5s linear;-o-transform-style:preserve-3d;-o-transition:all .5s linear;}
+      .box6 img{display:block;height:180px;}
+      .box6 span{display:block;height:180px;box-sizing:border-box;background-color:green;padding:5px 10px;transform-origin:100% 50%;transform:translate(-100%,-100%) rotateY(-90deg);-moz-transform-origin:100% 50%;-moz-transform:translate(-100%,-100%) rotateY(-90deg);-webkit-transform-origin:100% 50%;-webkit-transform:translate(-100%,-100%) rotateY(-90deg);-o-transform-origin:100% 50%;-o-transform:translate(-100%,-100%) rotateY(-90deg);}
+      .box6:hover a{transform:rotateY(90deg) translate3d(90px,0,112px);-moz-transform:rotateY(90deg) translate3d(90px,0,112px);-webkit-transform:rotateY(90deg) translate3d(90px,0,112px);-o-transform:rotateY(90deg) translate3d(90px,0,112px);}
+</style> 
+  </head>
+  <body>
+    <h2>CSS3 二维三维翻转</h2>
+      <div class="container">
+        <div class="box1">
+          <a href="#">
+            <img src="./2014.jpg" alt="" />
+            <span>二维水平翻牌</span>
+          </a>
+      </div>
+
+      <div class="box2">
+        <a href="#">
+          <img src="./2014.jpg" alt="" />
+          <span>二维垂直翻牌</span>
+        </a>
+      </div>
+
+      <div class="box3">
+        <a href="#">
+          <img src="./2014.jpg" alt="" />
+          <span>三维向上翻转</span>
+        </a>
+      </div>
+
+      <div class="box4">
+        <a href="#">
+          <img src="./2014.jpg" alt="" />
+          <span>三维向下翻转</span>
+        </a>
+      </div>
+    
+      <div class="box5">
+        <a href="#">
+          <img src="./2014.jpg" alt="" />
+          <span>三维向左翻转</span>
+        </a>
+      </div>
+
+      <div class="box6">
+        <a href="#">
+          <img src="./2014.jpg" alt="" />
+          <span>三维向右翻转</span>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
