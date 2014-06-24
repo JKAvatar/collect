@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DOM事件绑定</title>
+	</head>
+	<body>
+		<input type="button" id="bt" name="bt button" value="this is a button">
+		<script>
+			var bt = document.getElementById('bt');
+
+			/*
+			//传统方式
+			bt.onclick = function(e){
+				alert('this is a alert');
+				alert(e);
+			}
+			*/
+
+			/*
+			//W3C方式的事件绑定
+			bt.addEventListener('click',function(e){
+				alert(e.currentTarget.name);
+			},false);
+			*/
+
+			/*
+			//IE下的事件绑定
+			var name = "world";
+			bt.attachEvent('onclick',function(){
+				alert("hello "+this.name);
+			});
+			*/
+
+		</script>
+	</body>
+</html>
